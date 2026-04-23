@@ -1,0 +1,26 @@
+<!DOCTYPE html><html><head><meta charset="utf-8"><link rel="stylesheet" href="../colors_and_type.css"><style>
+body{margin:0;padding:24px;background:#fff;display:flex;gap:20px;flex-wrap:wrap;max-width:700px;font-family:var(--wdl-font-sans)}
+.field{display:flex;flex-direction:column;gap:6px;width:220px}
+.field label{font-weight:400;font-size:12px;line-height:1.2;letter-spacing:-0.03em;color:#697077}
+.field input,.field select{
+  height:44px;padding:0 14px;
+  border:1px solid #DDE1E6;background:#fff;
+  border-radius:8px;
+  font-family:var(--wdl-font-sans);font-weight:400;font-size:15px;line-height:1.5;color:#121619;
+  transition:border-color .15s, box-shadow .15s;
+}
+.field input::placeholder{color:#9199A1}
+.field input:focus, .field.focused input{
+  outline:none;
+  border-color:#0F62FE;
+  box-shadow:0 0 0 3px rgba(15,98,254,.2);
+}
+.field .help{font-weight:400;font-size:12px;line-height:1.2;letter-spacing:-0.03em;color:#697077}
+.field.err input{border-color:#DA1E28}
+.field.err input:focus{box-shadow:0 0 0 3px rgba(218,30,40,.18)}
+.field.err .help{color:#DA1E28}
+</style></head><body>
+<div class="field"><label>Email address</label><input type="email" value="nick.d@example.com"><span class="help">We'll email your ballot status.</span></div>
+<div class="field focused"><label>Password <span style="color:#0F62FE;font-weight:500">· focused</span></label><input type="password" value="••••••••"><span class="help" style="color:#0F62FE">Focus state shown</span></div>
+<div class="field err"><label>Ticket code</label><input value="WBL-2026-"><span class="help">Code not recognised.</span></div>
+</body></html>

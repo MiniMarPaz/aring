@@ -1,0 +1,341 @@
+/**
+ * Wimbledon Design System — Colors & Type CSS
+ * Extracted from design-system-v1 (SCSS) + Figma tokens.
+ * Primary ref: /design-system-v1/colors.scss, typography.scss, spacing.scss
+ */
+
+/* -------------------------------------------------------
+ * Fonts — Gotham SSm (real licensed files, OTF).
+ * Caslon is still substituted with EB Garamond (Google Fonts).
+ * ------------------------------------------------------- */
+@import url('https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap');
+
+/* Gotham SSm — the standard-width "Screen Smart" cut, used for UI + display. */
+@font-face { font-family: 'Gotham SSm'; font-style: normal; font-weight: 200; src: url('fonts/gothamssm_xlight.otf') format('opentype'); font-display: swap; }
+@font-face { font-family: 'Gotham SSm'; font-style: italic; font-weight: 200; src: url('fonts/gothamssm_xlightitalic.otf') format('opentype'); font-display: swap; }
+@font-face { font-family: 'Gotham SSm'; font-style: normal; font-weight: 300; src: url('fonts/gothamssm_light.otf') format('opentype'); font-display: swap; }
+@font-face { font-family: 'Gotham SSm'; font-style: italic; font-weight: 300; src: url('fonts/gothamssm_lightitalic.otf') format('opentype'); font-display: swap; }
+@font-face { font-family: 'Gotham SSm'; font-style: normal; font-weight: 500; src: url('fonts/gothamssm_medium.otf') format('opentype'); font-display: swap; }
+@font-face { font-family: 'Gotham SSm'; font-style: italic; font-weight: 500; src: url('fonts/gothamssm_mediumitalic.otf') format('opentype'); font-display: swap; }
+@font-face { font-family: 'Gotham SSm'; font-style: normal; font-weight: 700; src: url('fonts/gothamssm_bold.otf') format('opentype'); font-display: swap; }
+@font-face { font-family: 'Gotham SSm'; font-style: italic; font-weight: 700; src: url('fonts/gothamssm_bolditalic.otf') format('opentype'); font-display: swap; }
+@font-face { font-family: 'Gotham SSm'; font-style: normal; font-weight: 900; src: url('fonts/gothamssm_black.otf') format('opentype'); font-display: swap; }
+@font-face { font-family: 'Gotham SSm'; font-style: italic; font-weight: 900; src: url('fonts/gothamssm_blackitalic.otf') format('opentype'); font-display: swap; }
+
+/* Gotham SSm has no Book (400) in the SSm set — the SSm 400 slot maps to the Gotham Condensed "book" at 400; fall back to Medium for normal 400 use. */
+@font-face { font-family: 'Gotham SSm'; font-style: normal; font-weight: 400; src: url('fonts/gothamssm_light.otf') format('opentype'); font-display: swap; }
+@font-face { font-family: 'Gotham SSm'; font-style: italic; font-weight: 400; src: url('fonts/gothamssm_lightitalic.otf') format('opentype'); font-display: swap; }
+
+/* Gotham Condensed SSm — narrower cut, ideal for big all-caps display headlines. */
+@font-face { font-family: 'Gotham Cond SSm'; font-style: normal; font-weight: 200; src: url('fonts/gothamcondssm_xlight.otf') format('opentype'); font-display: swap; }
+@font-face { font-family: 'Gotham Cond SSm'; font-style: normal; font-weight: 300; src: url('fonts/gothamcondssm_light.otf') format('opentype'); font-display: swap; }
+@font-face { font-family: 'Gotham Cond SSm'; font-style: normal; font-weight: 400; src: url('fonts/gothamcondssm_book.otf') format('opentype'); font-display: swap; }
+@font-face { font-family: 'Gotham Cond SSm'; font-style: italic; font-weight: 400; src: url('fonts/gothamcondssm_bookitalic.otf') format('opentype'); font-display: swap; }
+@font-face { font-family: 'Gotham Cond SSm'; font-style: normal; font-weight: 500; src: url('fonts/gothamcondssm_medium.otf') format('opentype'); font-display: swap; }
+@font-face { font-family: 'Gotham Cond SSm'; font-style: normal; font-weight: 700; src: url('fonts/gothamcondssm_bold.otf') format('opentype'); font-display: swap; }
+@font-face { font-family: 'Gotham Cond SSm'; font-style: normal; font-weight: 900; src: url('fonts/gothamcondssm_black.otf') format('opentype'); font-display: swap; }
+
+:root {
+  /* ============================================================
+   * COLOR PRIMITIVES — Wimbledon brand + secondaries + highlights
+   * ============================================================ */
+
+  /* Primary — Wimbledon Green (the #006633 green is the hero color) */
+  --wdl-green-10: #CCE0D6;
+  --wdl-green-20: #AACCBB;
+  --wdl-green-30: #80B399;
+  --wdl-green-40: #559977;
+  --wdl-green-50: #2A8055;
+  --wdl-green:    #006633;   /* base */
+  --wdl-green-60: #00552B;
+  --wdl-green-70: #004422;
+  --wdl-green-80: #00331A;
+  --wdl-green-90: #002211;
+  --wdl-green-100:#00140A;
+
+  /* Primary — Wimbledon Purple */
+  --wdl-purple-10: #DDCCE6;
+  --wdl-purple-20: #C6AAD5;
+  --wdl-purple-30: #AA80C1;
+  --wdl-purple-40: #8D55AC;
+  --wdl-purple-50: #712A97;
+  --wdl-purple:    #540082;  /* base */
+  --wdl-purple-60: #46006C;
+  --wdl-purple-70: #380057;
+  --wdl-purple-80: #2A0041;
+  --wdl-purple-90: #1C002B;
+  --wdl-purple-100:#11001A;
+
+  /* Secondary palettes */
+  --wdl-score-green: #0B2917;         /* dark inverse background */
+  --wdl-lawn-green:  #22B263;         /* brighter live/tennis green */
+  --wdl-petunia:     #240330;         /* near-black purple */
+  --wdl-violet:      #8800E0;         /* data highlight */
+  --wdl-gold:        #9B8148;
+  --wdl-gold-60:     #816C3C;
+  --wdl-champagne:   #E2D9B5;         /* trophy / editorial accent */
+
+  /* Highlight colors (accent) */
+  --wdl-ball-yellow: #F3FF00;         /* tennis ball yellow — interactive on color */
+  --wdl-fresh-green: #CAE86B;
+  --wdl-floral-pink: #F57AF9;
+  --wdl-lavender:    #C8B6FF;
+  --wdl-silver:      #B5B1A7;
+
+  /* Neutrals (Cool Gray) */
+  --wdl-white:   #FFFFFF;
+  --wdl-grey-5:  #F2F4F8;
+  --wdl-grey-10: #E4E9F1;
+  --wdl-grey-15: #DDE1E6;
+  --wdl-grey-20: #CDD3DA;
+  --wdl-grey-25: #C1C7CD;
+  --wdl-grey-30: #ADB5BD;
+  --wdl-grey-35: #A2A9B0;
+  --wdl-grey-40: #9199A1;
+  --wdl-grey-45: #878D96;
+  --wdl-grey-50: #757B85;
+  --wdl-grey-55: #697077;
+  --wdl-grey-60: #5D646A;
+  --wdl-grey-65: #4D5358;
+  --wdl-grey-70: #434A51;
+  --wdl-grey-75: #343A3F;
+  --wdl-grey-80: #2B3236;
+  --wdl-grey-85: #222A2F;
+  --wdl-grey-90: #212121;
+  --wdl-grey-95: #121619;
+
+  /* Support */
+  --wdl-error:   #DA1E28;
+  --wdl-success: #198038;
+  --wdl-warning: #F1C21B;
+  --wdl-info:    #0043CE;
+
+  /* ============================================================
+   * SEMANTIC TOKENS — match the SCSS `--wdl-*` conventions
+   * ============================================================ */
+
+  /* Backgrounds */
+  --wdl-bg:                 var(--wdl-white);
+  --wdl-bg-grey:            var(--wdl-grey-5);
+  --wdl-bg-hover:           rgba(135,141,150,0.12);
+  --wdl-bg-active:          rgba(135,141,150,0.50);
+  --wdl-bg-selected:        rgba(135,141,150,0.20);
+  --wdl-bg-inverse-01:      var(--wdl-score-green);      /* dark green hero */
+  --wdl-bg-inverse-02:      var(--wdl-petunia);          /* dark purple hero */
+  --wdl-bg-brand-01:        var(--wdl-green);
+  --wdl-bg-brand-02:        var(--wdl-purple);
+  --wdl-bg-brand-03:        var(--wdl-gold-60);
+  --wdl-bg-brand-04:        var(--wdl-silver);
+
+  /* Layers */
+  --wdl-layer-01:           var(--wdl-white);
+  --wdl-layer-02:           var(--wdl-grey-5);
+  --wdl-layer-highlight:    #D3F0E0;
+  --wdl-layer-inverse-01:   var(--wdl-green-80);
+  --wdl-layer-inverse-02:   var(--wdl-green-70);
+
+  /* Text */
+  --wdl-text-primary:         var(--wdl-grey-95);      /* #121619 */
+  --wdl-text-secondary:       var(--wdl-grey-55);      /* #697077 */
+  --wdl-text-secondary-dark:  var(--wdl-grey-65);
+  --wdl-text-placeholder:     var(--wdl-grey-35);
+  --wdl-text-helper:          var(--wdl-grey-55);
+  --wdl-text-error:           var(--wdl-error);
+  --wdl-text-disabled:        var(--wdl-grey-45);
+  --wdl-text-on-colour:       var(--wdl-white);
+  --wdl-text-inverse:         var(--wdl-white);
+  --wdl-text-inverse-secondary-01: #879186;
+  --wdl-text-highlight:       var(--wdl-ball-yellow);
+  --wdl-text-brand-01:        var(--wdl-green);
+  --wdl-text-brand-02:        var(--wdl-purple);
+  --wdl-text-brand-03:        var(--wdl-gold);
+
+  /* Borders */
+  --wdl-border-light:         var(--wdl-grey-5);
+  --wdl-border-strong:        var(--wdl-grey-15);
+  --wdl-border-disabled:      var(--wdl-grey-10);
+  --wdl-border-brand-01:      var(--wdl-green);
+  --wdl-border-brand-02:      var(--wdl-purple);
+
+  /* Buttons */
+  --wdl-button-primary:           var(--wdl-green);
+  --wdl-button-primary-hover:     var(--wdl-green-60);
+  --wdl-button-primary-active:    var(--wdl-green-80);
+  --wdl-button-secondary:         var(--wdl-grey-10);
+  --wdl-button-secondary-hover:   var(--wdl-grey-15);
+  --wdl-button-tertiary:          var(--wdl-green);
+  --wdl-button-danger:            var(--wdl-error);
+
+  /* Links */
+  --wdl-link-primary:         var(--wdl-green);
+  --wdl-link-primary-hover:   var(--wdl-green-60);
+  --wdl-link-inverse:         var(--wdl-white);
+
+  /* Icons */
+  --wdl-icon-primary:                 var(--wdl-grey-95);
+  --wdl-icon-secondary:               var(--wdl-grey-55);
+  --wdl-icon-interactive-1:           var(--wdl-green);
+  --wdl-icon-interactive-2:           var(--wdl-purple);
+  --wdl-icon-interactive-on-colour:   var(--wdl-ball-yellow);
+
+  /* Focus */
+  --wdl-focus:       #0F62FE;
+  --wdl-focus-inset: var(--wdl-white);
+
+  /* Overlays */
+  --wdl-overlay-faint:   rgba(0,0,0,0.15);
+  --wdl-overlay-light:   rgba(0,0,0,0.40);
+  --wdl-overlay-medium:  rgba(0,0,0,0.60);
+  --wdl-overlay-strong:  rgba(0,0,0,0.85);
+
+  /* ============================================================
+   * SPACING — 8px grid
+   * ============================================================ */
+  --wdl-space-0: 0;
+  --wdl-space-1: 4px;
+  --wdl-space-2: 8px;
+  --wdl-space-3: 12px;
+  --wdl-space-4: 16px;
+  --wdl-space-5: 20px;
+  --wdl-space-6: 24px;
+  --wdl-space-8: 32px;
+  --wdl-space-10: 40px;
+  --wdl-space-12: 48px;
+  --wdl-space-16: 64px;
+  --wdl-space-20: 80px;
+  --wdl-space-24: 96px;
+
+  /* ============================================================
+   * RADII — tight, mostly near-square
+   * ============================================================ */
+  --wdl-radius-none: 0;
+  --wdl-radius-sm:   2px;
+  --wdl-radius-md:   4px;
+  --wdl-radius-lg:   8px;
+  --wdl-radius-xl:   12px;
+  --wdl-radius-pill: 9999px;
+
+  /* ============================================================
+   * SHADOWS — subtle, functional
+   * ============================================================ */
+  --wdl-shadow-sm: 0 1px 2px rgba(0,0,0,0.08);
+  --wdl-shadow-md: 0 2px 6px rgba(0,0,0,0.10);
+  --wdl-shadow-lg: 0 8px 24px rgba(0,0,0,0.15);
+  --wdl-shadow-overlay: 0 20px 48px rgba(0,0,0,0.25);
+
+  /* ============================================================
+   * FONT FAMILIES
+   * ============================================================ */
+  --wdl-font-sans:       'Gotham SSm', 'Gotham', -apple-system, system-ui, Arial, sans-serif;
+  --wdl-font-display:    'Gotham Cond SSm', 'Gotham Condensed', 'Gotham SSm', -apple-system, system-ui, Impact, sans-serif;
+  --wdl-font-expressive: 'EB Garamond', 'Adobe Caslon Pro', Georgia, serif;
+  --wdl-font-mono:       'IBM Plex Mono', ui-monospace, Consolas, monospace;
+
+  /* Base document scale */
+  --wdl-type-tracking-tight:  -0.03em;   /* Gotham headings */
+  --wdl-type-tracking-normal: 0;
+  --wdl-type-tracking-wide:   0.02em;    /* Caslon */
+}
+
+/* =============================================================
+ * BASE ELEMENT STYLES — semantic HTML maps to the scale
+ * ============================================================= */
+html, body {
+  margin: 0;
+  padding: 0;
+  background: var(--wdl-bg);
+  color: var(--wdl-text-primary);
+  font-family: var(--wdl-font-sans);
+  font-size: 16px;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+* { box-sizing: border-box; }
+
+/* ============================================================
+ * DISPLAY / HEADLINES — bold uppercase Gotham (Montserrat sub)
+ * Tight tracking (-3%), 95% line-height, used for hero marketing
+ * ============================================================ */
+/* Display uses Gotham Condensed SSm — the tall, narrow cut suited to big caps. */
+.wdl-display-140 { font: 700 140px/0.95 var(--wdl-font-display); letter-spacing: -0.02em; text-transform: uppercase; }
+.wdl-display-88  { font: 700 88px/0.95  var(--wdl-font-display); letter-spacing: -0.02em; text-transform: uppercase; }
+.wdl-display-64  { font: 700 64px/0.95  var(--wdl-font-display); letter-spacing: -0.02em; text-transform: uppercase; }
+.wdl-display-56  { font: 700 56px/0.95  var(--wdl-font-display); letter-spacing: -0.02em; text-transform: uppercase; }
+.wdl-display-40  { font: 700 40px/0.95  var(--wdl-font-display); letter-spacing: -0.01em; text-transform: uppercase; }
+.wdl-display-32  { font: 700 32px/0.95  var(--wdl-font-display); letter-spacing: -0.01em; text-transform: uppercase; }
+.wdl-display-28  { font: 700 28px/0.95  var(--wdl-font-display); letter-spacing: -0.01em; text-transform: uppercase; }
+
+/* ============================================================
+ * HEADINGS — Gotham Medium (500), tight, mostly sentence case
+ * ============================================================ */
+.wdl-h1  { font: 500 40px/1.0  var(--wdl-font-sans); letter-spacing: -0.03em; margin: 0; }
+.wdl-h2  { font: 500 32px/1.0  var(--wdl-font-sans); letter-spacing: -0.03em; margin: 0; }
+.wdl-h3  { font: 500 28px/1.2  var(--wdl-font-sans); letter-spacing: -0.03em; margin: 0; }
+.wdl-h4  { font: 500 24px/1.2  var(--wdl-font-sans); letter-spacing: -0.03em; margin: 0; }
+.wdl-h5  { font: 500 20px/1.5  var(--wdl-font-sans); letter-spacing: -0.03em; margin: 0; }
+.wdl-h6  { font: 500 16px/1.5  var(--wdl-font-sans); letter-spacing: -0.03em; margin: 0; }
+.wdl-h7  { font: 500 12px/1.5  var(--wdl-font-sans); letter-spacing: -0.03em; margin: 0; }
+.wdl-h8  { font: 500 14px/1.5  var(--wdl-font-sans); letter-spacing: -0.03em; margin: 0; }
+
+/* Expressive (Caslon/Garamond) — editorial, romantic */
+.wdl-h1-expressive { font: 400 48px/1.0 var(--wdl-font-expressive); letter-spacing: 0.02em; margin: 0; }
+.wdl-h2-expressive { font: 400 32px/1.0 var(--wdl-font-expressive); letter-spacing: 0.02em; margin: 0; }
+.wdl-h2-expressive-caps { font: 400 32px/1.0 var(--wdl-font-expressive); letter-spacing: 0.02em; text-transform: uppercase; margin: 0; }
+
+/* Eyebrows (all-caps small heads) */
+.wdl-eyebrow { font: 500 12px/1.2 var(--wdl-font-sans); letter-spacing: -0.03em; text-transform: uppercase; }
+
+/* ============================================================
+ * BODY / PARAGRAPH
+ * ============================================================ */
+.wdl-body-01   { font: 400 18px/1.5 var(--wdl-font-sans); letter-spacing: -0.03em; }
+.wdl-body-02   { font: 400 16px/1.5 var(--wdl-font-sans); letter-spacing: -0.03em; }
+.wdl-body-03   { font: 400 14px/1.2 var(--wdl-font-sans); letter-spacing: -0.03em; }
+.wdl-body-04   { font: 400 12px/1.2 var(--wdl-font-sans); letter-spacing: -0.03em; }
+
+.wdl-body-01-expressive { font: 400 20px/1.5 var(--wdl-font-expressive); letter-spacing: 0.02em; }
+.wdl-body-02-expressive { font: 400 18px/1.5 var(--wdl-font-expressive); letter-spacing: 0.02em; }
+
+/* Default element mappings */
+p  { font: 400 16px/1.5 var(--wdl-font-sans); letter-spacing: -0.03em; margin: 0 0 1em; color: var(--wdl-text-primary); }
+h1 { font: 500 40px/1.0 var(--wdl-font-sans); letter-spacing: -0.03em; margin: 0 0 0.5em; }
+h2 { font: 500 32px/1.0 var(--wdl-font-sans); letter-spacing: -0.03em; margin: 0 0 0.5em; }
+h3 { font: 500 28px/1.2 var(--wdl-font-sans); letter-spacing: -0.03em; margin: 0 0 0.5em; }
+h4 { font: 500 24px/1.2 var(--wdl-font-sans); letter-spacing: -0.03em; margin: 0 0 0.5em; }
+h5 { font: 500 20px/1.5 var(--wdl-font-sans); letter-spacing: -0.03em; margin: 0 0 0.5em; }
+h6 { font: 500 16px/1.5 var(--wdl-font-sans); letter-spacing: -0.03em; margin: 0 0 0.5em; }
+
+a { color: var(--wdl-link-primary); text-decoration: underline; text-underline-offset: 3px; }
+a:hover { color: var(--wdl-link-primary-hover); }
+
+code { font-family: var(--wdl-font-mono); font-size: 0.95em; }
+
+/* ============================================================
+ * LABELS, TAGS, HELPERS
+ * ============================================================ */
+.wdl-label-01 { font: 400 14px/1.5 var(--wdl-font-sans); letter-spacing: -0.03em; }
+.wdl-label-02 { font: 400 12px/1.2 var(--wdl-font-sans); letter-spacing: -0.03em; }
+.wdl-label-03 { font: 400 10px/1.2 var(--wdl-font-sans); letter-spacing: -0.03em; }
+
+.wdl-tag-01 { font: 500 14px/1.2 var(--wdl-font-sans); letter-spacing: -0.03em; text-transform: uppercase; }
+.wdl-tag-02 { font: 500 12px/1.2 var(--wdl-font-sans); letter-spacing: -0.03em; text-transform: uppercase; }
+.wdl-tag-03 { font: 500 10px/1.2 var(--wdl-font-sans); letter-spacing: -0.03em; text-transform: uppercase; }
+
+.wdl-helper-01 { font: 400 12px/1.2 var(--wdl-font-sans); letter-spacing: -0.03em; color: var(--wdl-text-helper); }
+
+/* ============================================================
+ * UTILS
+ * ============================================================ */
+.wdl-text-primary   { color: var(--wdl-text-primary); }
+.wdl-text-secondary { color: var(--wdl-text-secondary); }
+.wdl-text-inverse   { color: var(--wdl-text-inverse); }
+.wdl-text-brand-01  { color: var(--wdl-text-brand-01); }
+.wdl-text-brand-02  { color: var(--wdl-text-brand-02); }
+
+.wdl-bg-brand-01 { background: var(--wdl-bg-brand-01); color: var(--wdl-text-on-colour); }
+.wdl-bg-brand-02 { background: var(--wdl-bg-brand-02); color: var(--wdl-text-on-colour); }
+.wdl-bg-inverse-01 { background: var(--wdl-bg-inverse-01); color: var(--wdl-text-on-colour); }
+.wdl-bg-inverse-02 { background: var(--wdl-bg-inverse-02); color: var(--wdl-text-on-colour); }
+.wdl-bg-grey { background: var(--wdl-bg-grey); }

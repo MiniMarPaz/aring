@@ -1,0 +1,66 @@
+<!DOCTYPE html><html><head><meta charset="utf-8"><link rel="stylesheet" href="../colors_and_type.css"><style>
+body{margin:0;padding:24px;background:#fff;font-family:var(--wdl-font-sans)}
+.row{display:flex;gap:12px;flex-wrap:wrap;align-items:center;margin-bottom:16px}
+.row:last-child{margin-bottom:0}
+.lbl{font-weight:500;font-size:10px;text-transform:uppercase;letter-spacing:-0.03em;color:#697077;width:80px;flex-shrink:0}
+.btn{border:none;cursor:pointer;font-family:var(--wdl-font-sans);font-weight:700;font-size:14px;letter-spacing:0.02em;padding:0 20px;height:44px;border-radius:8px;display:inline-flex;align-items:center;gap:8px;position:relative;transition:background .2s}
+.btn.primary{background:#006633;color:#fff}
+.btn.primary:hover{background:#00552B}
+.btn.secondary{background:#E4E9F1;color:#121619}
+.btn.secondary:hover{background:#DDE1E6}
+.btn.tertiary{background:transparent;color:#006633;padding:0 8px}
+.btn.tertiary:hover{color:#00552B;background:rgba(0,102,51,.06)}
+.btn.danger{background:#DA1E28;color:#fff}
+.btn.ghost{background:transparent;color:#006633}
+
+/* States */
+.btn.disabled, .btn[disabled]{background:#E4E9F1;color:#9199A1;cursor:not-allowed;pointer-events:none}
+.btn.tertiary.disabled{background:transparent;color:#9199A1}
+.btn.danger.disabled{background:#E4E9F1;color:#9199A1}
+
+.btn.loading{color:transparent;cursor:progress}
+.btn.loading::after{content:"";position:absolute;inset:0;margin:auto;width:16px;height:16px;border:2px solid currentColor;border-top-color:transparent;border-radius:50%;animation:sp .8s linear infinite;color:#fff}
+.btn.primary.loading::after{color:#fff}
+.btn.secondary.loading::after{color:#121619}
+.btn.tertiary.loading::after{color:#006633}
+.btn.danger.loading::after{color:#fff}
+@keyframes sp{to{transform:rotate(360deg)}}
+
+/* Skeleton */
+.btn.skeleton{background:#E4E9F1;color:transparent;position:relative;overflow:hidden;pointer-events:none;width:120px}
+.btn.skeleton::after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,transparent 0,rgba(255,255,255,.6) 50%,transparent 100%);animation:sh 1.4s infinite}
+@keyframes sh{0%{transform:translateX(-100%)}100%{transform:translateX(100%)}}
+</style></head><body>
+
+<div class="row">
+  <span class="lbl">Default</span>
+  <button class="btn primary">Buy tickets</button>
+  <button class="btn secondary">Read more</button>
+  <button class="btn tertiary">View draw →</button>
+  <button class="btn danger">Cancel</button>
+</div>
+
+<div class="row">
+  <span class="lbl">Disabled</span>
+  <button class="btn primary disabled">Buy tickets</button>
+  <button class="btn secondary disabled">Read more</button>
+  <button class="btn tertiary disabled">View draw →</button>
+  <button class="btn danger disabled">Cancel</button>
+</div>
+
+<div class="row">
+  <span class="lbl">Loading</span>
+  <button class="btn primary loading">Buy tickets</button>
+  <button class="btn secondary loading">Read more</button>
+  <button class="btn tertiary loading">View draw</button>
+  <button class="btn danger loading">Cancel</button>
+</div>
+
+<div class="row">
+  <span class="lbl">Skeleton</span>
+  <button class="btn skeleton" style="width:120px"></button>
+  <button class="btn skeleton" style="width:100px"></button>
+  <button class="btn skeleton" style="width:80px"></button>
+</div>
+
+</body></html>

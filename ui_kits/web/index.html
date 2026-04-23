@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Wimbledon · UI Kit</title>
+<link rel="stylesheet" href="../../colors_and_type.css">
+<style>
+  body { margin:0; background:#F2F4F8; }
+  .page { max-width:100%; }
+  .container { max-width:1312px; margin:0 auto; padding:0 48px; }
+  .section-head { display:flex; justify-content:space-between; align-items:baseline; padding:56px 0 24px; }
+  .section-head h2 { font:500 32px/1 var(--wdl-font-sans); letter-spacing:-0.03em; margin:0; }
+  .section-head a { font:500 13px var(--wdl-font-sans); letter-spacing:-0.03em; color:#006633; text-decoration:none; }
+  .rail { display:grid; grid-template-columns:repeat(3, 1fr); gap:24px; padding-bottom:32px; }
+  .screens { display:none; }
+  .screens.active { display:block; }
+  .banner { background:#006633; color:#fff; padding:10px 24px; font:500 13px var(--wdl-font-sans); letter-spacing:-0.03em; text-align:center; }
+</style>
+</head>
+<body>
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+
+<div id="root"></div>
+
+<script type="text/babel" src="./Button.jsx"></script>
+<script type="text/babel" src="./Tag.jsx"></script>
+<script type="text/babel" src="./Header.jsx"></script>
+<script type="text/babel" src="./HeroChampionships.jsx"></script>
+<script type="text/babel" src="./NewsCard.jsx"></script>
+<script type="text/babel" src="./LiveScore.jsx"></script>
+<script type="text/babel" src="./OrderOfPlay.jsx"></script>
+<script type="text/babel" src="./PlayerHeader.jsx"></script>
+<script type="text/babel" src="./Footer.jsx"></script>
+
+<script type="text/babel" data-presets="env,react">
+function App() {
+  const [screen, setScreen] = React.useState('home');
+  const [authed, setAuthed] = React.useState(false);
+  const onNav = (to) => {
+    if (to === 'login') { setAuthed(true); setScreen('home'); return; }
+    setScreen(to);
+  };
+
+  const HomeScreen = () => (
+    <>
+      <HeroChampionships />
+      <div className="container">
+        <div className="section-head"><h2>Latest news</h2><a>View all →</a></div>
+        <div className="rail">
+          <NewsCard tag="news" tagLabel="News" eyebrow="Day 7 · Report" title="Alcaraz into quarters after four-set battle" meta="5 min read · 3 July" image="linear-gradient(180deg,#559977,#006633)"/>
+          <NewsCard tag="feature" tagLabel="Feature" eyebrow="Heritage" title="The story behind the trophies" meta="8 min read" expressive image="linear-gradient(180deg,#712A97,#540082)"/>
+          <NewsCard tag="video" tagLabel="Video" eyebrow="Highlights" title="Best points from Centre Court — Day 7" meta="3:48" image="linear-gradient(180deg,#343A3F,#121619)"/>
+        </div>
+        <div className="section-head"><h2>Live scores</h2><a onClick={()=>setScreen('scores')} style={{cursor:'pointer'}}>All matches →</a></div>
+        <div style={{display:'grid',gridTemplateColumns:'1fr 1fr',gap:24,paddingBottom:40}}>
+          <LiveScore court="Centre Court" round="4th round" live={3}
+            players={[
+              {country:'SRB', name:'N. Djokovic', seed:2},
+              {country:'ITA', name:'J. Sinner',   seed:1}
+            ]}
+            sets={[
+              [{val:6,winner:true},{val:4},{val:6,winner:true,tb:7},{val:null},{val:null}],
+              [{val:4},{val:6,winner:true},{val:3,tb:5},{val:null},{val:null}]
+            ]}/>
+          <LiveScore court="No.1 Court" round="Quarter-final" live={2}
+            players={[
+              {country:'ESP', name:'C. Alcaraz', seed:3},
+              {country:'USA', name:'T. Fritz',   seed:9}
+            ]}
+            sets={[
+              [{val:7,winner:true},{val:5},{val:null},{val:null},{val:null}],
+              [{val:5},{val:6,winner:true},{val:null},{val:null},{val:null}]
+            ]}/>
+        </div>
+      </div>
+      <Footer />
+    </>
+  );
+
+  const ScoresScreen = () => (
+    <>
+      <div className="container">
+        <div className="section-head"><h2>Order of Play · Day 8</h2><a>Select date →</a></div>
+        <div style={{display:'grid',gridTemplateColumns:'1fr 1fr',gap:24,paddingBottom:56}}>
+          <OrderOfPlay court="Centre Court" matches={[
+            {label:'Match 1', event:"Gentlemen's singles, QF", p1:'N. Djokovic (2)', p2:'J. Sinner (1)', status:'live'},
+            {label:'Match 2', event:"Ladies' singles, QF",     p1:'I. Świątek (1)', p2:'A. Sabalenka (3)', status:'upcoming'},
+            {label:'Match 3', event:"Gentlemen's doubles",     p1:'Ram / Salisbury', p2:'Krawietz / Pütz', status:'upcoming'},
+          ]}/>
+          <OrderOfPlay court="No.1 Court" matches={[
+            {label:'Match 1', event:"Ladies' singles, QF",  p1:'C. Gauff (2)',    p2:'J. Pegula (4)', status:'completed', score:'6–3, 7–5'},
+            {label:'Match 2', event:"Gentlemen's singles",   p1:'C. Alcaraz (3)',  p2:'T. Fritz (9)', status:'live'},
+            {label:'Match 3', event:"Mixed doubles",         p1:'Krawczyk / Ram',  p2:'Siegemund / Zverev', status:'upcoming'},
+          ]}/>
+        </div>
+      </div>
+      <Footer />
+    </>
+  );
+
+  const PlayerScreen = () => (
+    <>
+      <PlayerHeader name="Novak Djokovic" country="SRB" seed={2} age={38} ranking={4}/>
+      <div className="container">
+        <div className="section-head"><h2>Recent matches</h2></div>
+        <div style={{display:'grid',gridTemplateColumns:'1fr',gap:12,paddingBottom:56}}>
+          {[
+            {r:'4th round', o:'H. Hurkacz',   s:'6–4, 6–3, 6–2', w:true},
+            {r:'3rd round', o:'A. Fils',       s:'7–6, 6–4, 6–2', w:true},
+            {r:'2nd round', o:'J. Thompson',   s:'6–3, 6–2, 6–4', w:true},
+            {r:'1st round', o:'V. Vacherot',   s:'6–1, 6–2, 6–2', w:true},
+          ].map((m,i)=>(
+            <div key={i} style={{padding:'16px 20px', background:'#fff', border:'1px solid #DDE1E6', borderRadius:8, display:'grid', gridTemplateColumns:'100px 1fr auto auto', gap:20, alignItems:'center', fontFamily:'var(--wdl-font-sans)'}}>
+              <span style={{fontSize:11,color:'#697077',textTransform:'uppercase',letterSpacing:'-0.03em',fontWeight:500}}>{m.r}</span>
+              <span style={{fontSize:14,letterSpacing:'-0.03em'}}>vs {m.o}</span>
+              <span style={{fontFamily:'IBM Plex Mono,monospace',fontSize:13}}>{m.s}</span>
+              <Tag kind="live">{m.w ? 'Win':'Loss'}</Tag>
+            </div>
+          ))}
+        </div>
+      </div>
+      <Footer />
+    </>
+  );
+
+  const TicketsScreen = () => (
+    <>
+      <div className="container" style={{paddingTop:40, paddingBottom:56}}>
+        <div style={{background:'#540082', color:'#fff', borderRadius:12, padding:'40px 48px', display:'grid', gridTemplateColumns:'1fr auto', gap:32, alignItems:'center', marginBottom:32}}>
+          <div>
+            <div style={{fontSize:11,fontWeight:500,textTransform:'uppercase',letterSpacing:'-0.03em',color:'#E2D9B5',marginBottom:12}}>Ballot 2026</div>
+            <h2 style={{fontFamily:'var(--wdl-font-display)',fontSize:48,fontWeight:700,lineHeight:0.95,letterSpacing:'-0.02em',textTransform:'uppercase',margin:'0 0 12px'}}>Your ballot status</h2>
+            <p style={{fontFamily:"'EB Garamond',serif",fontSize:20,letterSpacing:'0.02em',margin:0,color:'#E4E9F1',maxWidth:500}}>You are entered into the public ballot for The Championships 2026. We will notify you by email in March.</p>
+          </div>
+          <div style={{padding:'20px 24px', background:'rgba(226,217,181,0.15)', border:'1px solid #E2D9B5', borderRadius:8}}>
+            <div style={{fontSize:10,textTransform:'uppercase',color:'#E2D9B5',letterSpacing:'-0.03em',marginBottom:6}}>Reference</div>
+            <div style={{fontFamily:'IBM Plex Mono,monospace',fontSize:20,fontWeight:500}}>WBL-2026-47A9</div>
+          </div>
+        </div>
+        <div style={{display:'grid',gridTemplateColumns:'1fr 1fr 1fr',gap:16}}>
+          {[
+            {h:'Public ballot',   b:'Entry closed 1 September 2025', s:'Entered', c:'#006633'},
+            {h:'Debentures',      b:'Five-year debentures available now', s:'Open', c:'#9B8148'},
+            {h:'Hospitality',     b:'Courtside dining for groups of 8+', s:'Enquire', c:'#540082'},
+          ].map((c,i)=>(
+            <div key={i} style={{background:'#fff',border:'1px solid #DDE1E6',borderRadius:8,padding:24,fontFamily:'var(--wdl-font-sans)'}}>
+              <div style={{fontSize:11,fontWeight:500,textTransform:'uppercase',letterSpacing:'-0.03em',color:c.c,marginBottom:12}}>{c.s}</div>
+              <h3 style={{fontSize:20,fontWeight:500,letterSpacing:'-0.03em',margin:'0 0 10px'}}>{c.h}</h3>
+              <p style={{fontSize:13,color:'#697077',margin:'0 0 20px',letterSpacing:'-0.03em'}}>{c.b}</p>
+              <Button variant="tertiary" size="sm" icon="arrow">Learn more</Button>
+            </div>
+          ))}
+        </div>
+      </div>
+      <Footer />
+    </>
+  );
+
+  return (
+    <div className="page">
+      {authed && <div className="banner">Welcome back, Nick · Your ballot is under review</div>}
+      <Header active={screen} authed={authed} onNav={onNav} />
+      {screen === 'home'    && <HomeScreen />}
+      {screen === 'scores'  && <ScoresScreen />}
+      {screen === 'players' && <PlayerScreen />}
+      {screen === 'tickets' && <TicketsScreen />}
+      {['draws','watch','news'].includes(screen) && (
+        <div className="container" style={{padding:'80px 0',textAlign:'center',color:'#697077',fontFamily:'var(--wdl-font-sans)'}}>
+          <h2 style={{color:'#121619'}}>{screen[0].toUpperCase()+screen.slice(1)}</h2>
+          <p>Section under construction.</p>
+        </div>
+      )}
+      {!['home','scores','players','tickets','draws','watch','news'].includes(screen) && <HomeScreen/>}
+    </div>
+  );
+}
+
+ReactDOM.createRoot(document.getElementById('root')).render(<App/>);
+</script>
+</body>
+</html>

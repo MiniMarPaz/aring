@@ -1,0 +1,641 @@
+<!doctype html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Button System — Spec Sheet</title>
+  <style>
+    /* Gotham SSm — available OTF weights */
+    @font-face { font-family: 'Gotham SSm'; font-style: normal; font-weight: 200; src: url('fonts/gothamssm_xlight.otf') format('opentype'); font-display: swap; }
+    @font-face { font-family: 'Gotham SSm'; font-style: normal; font-weight: 500; src: url('fonts/gothamssm_medium.otf') format('opentype'); font-display: swap; }
+    @font-face { font-family: 'Gotham SSm'; font-style: italic; font-weight: 300; src: url('fonts/gothamssm_lightitalic.otf') format('opentype'); font-display: swap; }
+    @font-face { font-family: 'Gotham SSm'; font-style: normal; font-weight: 900; src: url('fonts/gothamssm_black.otf') format('opentype'); font-display: swap; }
+    @font-face { font-family: 'Gotham SSm'; font-style: italic; font-weight: 900; src: url('fonts/gothamssm_blackitalic.otf') format('opentype'); font-display: swap; }
+
+    /* ═══════════════════════════════════════════════════════════════
+       Tokens (mirror of package/src/tokens/_tokens.scss)
+       Wimbledon Design System color palette
+       ═══════════════════════════════════════════════════════════════ */
+    :root, [data-theme="light"] {
+      --btn-ink:        #006633;   /* wdl-green — Wimbledon primary */
+      --btn-ink-hover:  #00552B;   /* wdl-green-60 */
+      --btn-ink-active: #00331A;   /* wdl-green-80 */
+      --btn-surface:        #E4E9F1;   /* wdl-grey-10 */
+      --btn-surface-hover:  #DDE1E6;   /* wdl-grey-15 */
+      --btn-surface-active: #CDD3DA;   /* wdl-grey-20 */
+      --btn-border:       #DDE1E6;
+      --btn-border-hover: #006633;
+      --btn-ghost-hover:  rgba(0, 102, 51, 0.06);
+      --btn-ghost-active: rgba(0, 102, 51, 0.12);
+      --btn-label-on-ink:     #FFFFFF;
+      --btn-label-on-surface: #121619;   /* wdl-grey-95 */
+      --btn-label-tertiary:   #006633;   /* green text, no border */
+      --btn-label-ghost:      #121619;
+      --btn-danger: #DA1E28;   /* wdl-error */
+      --btn-danger-hover:  #B01820;
+      --btn-danger-active: #82060E;
+      --btn-focus-ring: #0F62FE;   /* wdl-focus */
+      --btn-focus-ring-width: 2px;
+      --btn-focus-ring-offset: 2px;
+      --btn-disabled-bg:     #E4E9F1;   /* wdl-grey-10 */
+      --btn-disabled-fg:     #878D96;   /* wdl-grey-45 */
+      --btn-disabled-border: #E4E9F1;
+
+      --btn-radius: 8px;
+      --btn-h-sm: 32px; --btn-h-md: 44px; --btn-h-lg: 52px;
+      --btn-px-sm: 12px; --btn-px-md: 16px; --btn-px-lg: 20px;
+      --btn-gap: 8px;
+
+      --btn-font-family: 'Gotham SSm', 'Gotham', -apple-system, system-ui, Arial, sans-serif;
+      --btn-font-weight: 500;
+      --btn-font-size-sm: 13px;
+      --btn-font-size-md: 14px;
+      --btn-font-size-lg: 16px;
+      --btn-letter-spacing: -0.01em;
+      --btn-icon-sm: 14px; --btn-icon-md: 16px; --btn-icon-lg: 18px;
+      --btn-transition: 120ms cubic-bezier(0.2, 0, 0, 1);
+
+      --page-bg: #F2F4F8;   /* wdl-grey-5 */
+      --page-fg: #121619;   /* wdl-grey-95 */
+      --panel-bg: #FFFFFF;
+      --panel-border: #DDE1E6;   /* wdl-grey-15 */
+      --muted: #697077;   /* wdl-grey-55 */
+      --mono: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    }
+
+    [data-theme="dark"] {
+      --btn-ink:        #22B263;   /* wdl-lawn-green — brighter on dark */
+      --btn-ink-hover:  #1B9A4F;
+      --btn-ink-active: #145F33;
+      --btn-surface:        #2B3236;   /* wdl-grey-80 */
+      --btn-surface-hover:  #343A3F;   /* wdl-grey-75 */
+      --btn-surface-active: #434A51;   /* wdl-grey-70 */
+      --btn-border:       #434A51;
+      --btn-border-hover: #22B263;
+      --btn-ghost-hover:  rgba(34, 178, 99, 0.08);
+      --btn-ghost-active: rgba(34, 178, 99, 0.16);
+      --btn-label-on-ink:     #FFFFFF;
+      --btn-label-on-surface: #F2F4F8;   /* wdl-grey-5 */
+      --btn-label-tertiary:   #22B263;
+      --btn-label-ghost:      #F2F4F8;
+      --btn-danger: #FF8389;
+      --btn-danger-hover:  #FFA4A9;
+      --btn-danger-active: #DA1E28;
+      --btn-focus-ring: #78A9FF;
+      --btn-disabled-bg:     #2B3236;
+      --btn-disabled-fg:     #697077;   /* wdl-grey-55 */
+      --btn-disabled-border: #2B3236;
+
+      --page-bg: #121619;   /* wdl-grey-95 */
+      --page-fg: #F2F4F8;   /* wdl-grey-5 */
+      --panel-bg: #222A2F;   /* wdl-grey-85 */
+      --panel-border: #343A3F;   /* wdl-grey-75 */
+      --muted: #9199A1;   /* wdl-grey-40 */
+    }
+
+    /* ═══════════════════════════════════════════════════════════════
+       Button (mirror of Button.scss — unscoped CSS)
+       ═══════════════════════════════════════════════════════════════ */
+    .ds-btn {
+      position: relative; display: inline-flex; align-items: center;
+      justify-content: center; gap: var(--btn-gap);
+      box-sizing: border-box; border: 1px solid transparent;
+      border-radius: var(--btn-radius);
+      font-family: var(--btn-font-family); font-weight: var(--btn-font-weight);
+      letter-spacing: var(--btn-letter-spacing);
+      white-space: nowrap; text-decoration: none;
+      cursor: pointer; user-select: none; -webkit-tap-highlight-color: transparent;
+      transition: background-color var(--btn-transition), color var(--btn-transition),
+        border-color var(--btn-transition), box-shadow var(--btn-transition),
+        transform var(--btn-transition);
+    }
+    .ds-btn:focus { outline: none; }
+    .ds-btn:focus-visible, .ds-btn.is-focus {
+      outline: var(--btn-focus-ring-width) solid var(--btn-focus-ring);
+      outline-offset: var(--btn-focus-ring-offset);
+    }
+    .ds-btn__icon { display: inline-flex; flex: 0 0 auto; align-items: center; justify-content: center; }
+    .ds-btn[data-loading="true"] { cursor: progress; }
+    .ds-btn[data-loading="true"] .ds-btn__label,
+    .ds-btn[data-loading="true"] .ds-btn__icon { visibility: hidden; }
+    .ds-btn__spinner { position: absolute; inset: 0; display: inline-flex; align-items: center; justify-content: center; }
+
+    .ds-btn--sm { height: var(--btn-h-sm); padding: 0 var(--btn-px-sm); font-size: var(--btn-font-size-sm); }
+    .ds-btn--md { height: var(--btn-h-md); padding: 0 var(--btn-px-md); font-size: var(--btn-font-size-md); }
+    .ds-btn--lg { height: var(--btn-h-lg); padding: 0 var(--btn-px-lg); font-size: var(--btn-font-size-lg); }
+    .ds-btn--sm .ds-btn__icon { width: var(--btn-icon-sm); height: var(--btn-icon-sm); }
+    .ds-btn--md .ds-btn__icon { width: var(--btn-icon-md); height: var(--btn-icon-md); }
+    .ds-btn--lg .ds-btn__icon { width: var(--btn-icon-lg); height: var(--btn-icon-lg); }
+
+    .ds-btn--icon-only { padding: 0; }
+    .ds-btn--icon-only.ds-btn--sm { width: var(--btn-h-sm); }
+    .ds-btn--icon-only.ds-btn--md { width: var(--btn-h-md); }
+    .ds-btn--icon-only.ds-btn--lg { width: var(--btn-h-lg); }
+    .ds-btn--block { width: 100%; }
+
+    /* Primary */
+    .ds-btn--primary { background: var(--btn-ink); color: var(--btn-label-on-ink); border-color: var(--btn-ink); }
+    .ds-btn--primary.is-hover,
+    .ds-btn--primary:hover:not(:disabled):not([data-loading="true"]) {
+      background: var(--btn-ink-hover); border-color: var(--btn-ink-hover);
+    }
+    .ds-btn--primary.is-active,
+    .ds-btn--primary:active:not(:disabled):not([data-loading="true"]) {
+      background: var(--btn-ink-active); border-color: var(--btn-ink-active);
+    }
+
+    /* Secondary */
+    .ds-btn--secondary { background: var(--btn-surface); color: var(--btn-label-on-surface); border-color: var(--btn-surface); }
+    .ds-btn--secondary.is-hover,
+    .ds-btn--secondary:hover:not(:disabled):not([data-loading="true"]) {
+      background: var(--btn-surface-hover); border-color: var(--btn-surface-hover);
+    }
+    .ds-btn--secondary.is-active,
+    .ds-btn--secondary:active:not(:disabled):not([data-loading="true"]) {
+      background: var(--btn-surface-active); border-color: var(--btn-surface-active);
+    }
+
+    /* Tertiary — flat text-style in brand green, no border */
+    .ds-btn--tertiary { background: transparent; color: var(--btn-label-tertiary); border-color: transparent; }
+    .ds-btn--tertiary.is-hover,
+    .ds-btn--tertiary:hover:not(:disabled):not([data-loading="true"]) {
+      background: var(--btn-ghost-hover);
+    }
+    .ds-btn--tertiary.is-active,
+    .ds-btn--tertiary:active:not(:disabled):not([data-loading="true"]) {
+      background: var(--btn-ghost-active);
+    }
+
+    /* Ghost */
+    .ds-btn--ghost { background: transparent; color: var(--btn-label-ghost); border-color: transparent; }
+    .ds-btn--ghost.is-hover,
+    .ds-btn--ghost:hover:not(:disabled):not([data-loading="true"]) {
+      background: var(--btn-ghost-hover);
+    }
+    .ds-btn--ghost.is-active,
+    .ds-btn--ghost:active:not(:disabled):not([data-loading="true"]) {
+      background: var(--btn-ghost-active);
+    }
+
+    /* Danger */
+    .ds-btn--danger.ds-btn--primary {
+      background: var(--btn-danger); border-color: var(--btn-danger);
+    }
+    .ds-btn--danger.ds-btn--primary.is-hover,
+    .ds-btn--danger.ds-btn--primary:hover:not(:disabled):not([data-loading="true"]) {
+      background: var(--btn-danger-hover); border-color: var(--btn-danger-hover);
+    }
+    .ds-btn--danger.ds-btn--primary.is-active,
+    .ds-btn--danger.ds-btn--primary:active:not(:disabled):not([data-loading="true"]) {
+      background: var(--btn-danger-active); border-color: var(--btn-danger-active);
+    }
+    .ds-btn--danger.ds-btn--secondary,
+    .ds-btn--danger.ds-btn--tertiary,
+    .ds-btn--danger.ds-btn--ghost { color: var(--btn-danger); }
+    .ds-btn--danger.ds-btn--tertiary { border-color: var(--btn-danger); }
+
+    /* Disabled */
+    .ds-btn:disabled, .ds-btn[aria-disabled="true"] {
+      cursor: not-allowed; pointer-events: none;
+      background: var(--btn-disabled-bg); color: var(--btn-disabled-fg); border-color: var(--btn-disabled-border);
+    }
+    .ds-btn--ghost:disabled, .ds-btn--ghost[aria-disabled="true"] {
+      background: transparent; border-color: transparent;
+    }
+    .ds-btn--tertiary:disabled, .ds-btn--tertiary[aria-disabled="true"] {
+      background: transparent; border-color: transparent;
+    }
+
+    /* Spinner */
+    .ds-btn__spinner-svg { width: 1em; height: 1em; animation: ds-btn-spin 0.8s linear infinite; }
+    .ds-btn__spinner-track { opacity: 0.25; } .ds-btn__spinner-head { opacity: 1; }
+    @keyframes ds-btn-spin { to { transform: rotate(360deg); } }
+
+    /* ═══════════════════════════════════════════════════════════════
+       Page chrome
+       ═══════════════════════════════════════════════════════════════ */
+    * { box-sizing: border-box; }
+    html, body { margin: 0; padding: 0; }
+    body {
+      background: var(--page-bg); color: var(--page-fg);
+      font-family: var(--btn-font-family);
+      font-feature-settings: "ss01", "cv01";
+      -webkit-font-smoothing: antialiased;
+    }
+
+    .page { max-width: 1280px; margin: 0 auto; padding: 48px 40px 96px; }
+    .header {
+      display: flex; align-items: flex-start; justify-content: space-between;
+      gap: 24px; padding-bottom: 32px; border-bottom: 1px solid var(--panel-border);
+      margin-bottom: 40px;
+    }
+    .eyebrow {
+      font-family: var(--mono); font-size: 11px; letter-spacing: 0.08em;
+      text-transform: uppercase; color: var(--muted); margin: 0 0 8px;
+    }
+    h1 { font-size: 36px; font-weight: 600; letter-spacing: -0.02em; margin: 0 0 8px; }
+    .lede { color: var(--muted); font-size: 15px; max-width: 620px; margin: 0; line-height: 1.55; }
+
+    .theme-toggle {
+      display: inline-flex; padding: 4px; gap: 2px;
+      background: var(--panel-bg); border: 1px solid var(--panel-border);
+      border-radius: 999px;
+    }
+    .theme-toggle button {
+      appearance: none; border: 0; background: transparent;
+      padding: 8px 16px; border-radius: 999px;
+      font: 500 13px/1 var(--btn-font-family); color: var(--muted);
+      cursor: pointer; letter-spacing: -0.01em;
+    }
+    .theme-toggle button[aria-pressed="true"] {
+      background: var(--btn-ink); color: var(--btn-label-on-ink);
+    }
+
+    .section { margin-top: 56px; }
+    .section-title {
+      display: flex; align-items: baseline; gap: 16px;
+      font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase;
+      font-family: var(--mono); color: var(--muted);
+      padding-bottom: 12px; border-bottom: 1px solid var(--panel-border); margin: 0 0 24px;
+    }
+    .section-title .num { color: var(--page-fg); font-weight: 600; }
+    .section-title h2 { margin: 0; font-size: 12px; font-weight: 500; color: var(--page-fg); letter-spacing: 0.08em; }
+    .section-title .caption { margin-left: auto; color: var(--muted); font-family: var(--btn-font-family); text-transform: none; letter-spacing: -0.01em; font-size: 13px; }
+
+    .matrix {
+      display: grid; gap: 1px;
+      background: var(--panel-border);
+      border: 1px solid var(--panel-border); border-radius: 12px; overflow: hidden;
+    }
+    .matrix-row { display: grid; background: var(--panel-border); gap: 1px; }
+    .cell {
+      background: var(--panel-bg); padding: 28px 24px;
+      display: flex; align-items: center; justify-content: center;
+      min-height: 108px;
+    }
+    .cell.label {
+      justify-content: flex-start;
+      font-family: var(--mono); font-size: 11px; letter-spacing: 0.06em;
+      text-transform: uppercase; color: var(--muted); padding: 16px 20px;
+      min-height: 0;
+    }
+    .cell.corner { background: var(--panel-bg); }
+
+    .grid-5 { grid-template-columns: 140px repeat(4, 1fr); }
+    .grid-6 { grid-template-columns: 140px repeat(6, 1fr); }
+    .grid-4 { grid-template-columns: 140px repeat(3, 1fr); }
+    .grid-3 { grid-template-columns: 140px repeat(2, 1fr); }
+
+    /* inline code */
+    code {
+      font-family: var(--mono); font-size: 12px;
+      background: var(--btn-ghost-hover); padding: 2px 6px; border-radius: 4px;
+    }
+
+    /* Token legend */
+    .tokens {
+      display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+      gap: 1px; background: var(--panel-border); border: 1px solid var(--panel-border);
+      border-radius: 12px; overflow: hidden;
+    }
+    .token {
+      background: var(--panel-bg); padding: 16px 18px;
+      display: flex; align-items: center; gap: 12px;
+    }
+    .token-swatch { width: 28px; height: 28px; border-radius: 6px; border: 1px solid var(--panel-border); flex: 0 0 auto; }
+    .token-meta { display: flex; flex-direction: column; gap: 2px; min-width: 0; }
+    .token-name { font-family: var(--mono); font-size: 12px; color: var(--page-fg); }
+    .token-val { font-family: var(--mono); font-size: 11px; color: var(--muted); overflow: hidden; text-overflow: ellipsis; }
+
+    /* Code panel */
+    pre.code {
+      margin: 0; padding: 20px 22px; border-radius: 12px;
+      background: oklch(0.16 0.01 250); color: oklch(0.94 0.005 250);
+      font-family: var(--mono); font-size: 12.5px; line-height: 1.6;
+      overflow-x: auto; border: 1px solid oklch(0.25 0.01 250);
+    }
+    [data-theme="dark"] pre.code { background: oklch(0.12 0.005 250); }
+    pre.code .c-k { color: oklch(0.75 0.12 270); }
+    pre.code .c-s { color: oklch(0.80 0.12 140); }
+    pre.code .c-p { color: oklch(0.78 0.14 60); }
+    pre.code .c-m { color: oklch(0.65 0.008 250); }
+
+    .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+    @media (max-width: 900px) { .two-col { grid-template-columns: 1fr; } }
+
+    .notes {
+      margin-top: 12px; color: var(--muted); font-size: 13px; line-height: 1.55;
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <header class="header">
+      <div>
+        <p class="eyebrow">Design System · Components</p>
+        <h1>Button</h1>
+        <p class="lede">Neutral, brand-agnostic button system. Four hierarchies × three sizes × six states, driven entirely by <code>--btn-*</code> custom properties so the system is themeable without touching component code.</p>
+      </div>
+      <div class="theme-toggle" role="group" aria-label="Theme">
+        <button id="tlight" aria-pressed="true">Light</button>
+        <button id="tdark" aria-pressed="false">Dark</button>
+      </div>
+    </header>
+
+    <!-- ───────────── 01 · Hierarchy × State ───────────── -->
+    <section class="section">
+      <div class="section-title">
+        <span class="num">01</span><h2>Hierarchy × State</h2>
+        <span class="caption">Rows: primary / secondary / tertiary / ghost · Columns: default → loading</span>
+      </div>
+
+      <div class="matrix">
+        <div class="matrix-row grid-6">
+          <div class="cell corner label">Hierarchy \ State</div>
+          <div class="cell label">Default</div>
+          <div class="cell label">Hover</div>
+          <div class="cell label">Focus</div>
+          <div class="cell label">Active</div>
+          <div class="cell label">Disabled</div>
+          <div class="cell label">Loading</div>
+        </div>
+
+        <!-- Primary -->
+        <div class="matrix-row grid-6">
+          <div class="cell label">Primary</div>
+          <div class="cell"><button class="ds-btn ds-btn--primary ds-btn--md">Button</button></div>
+          <div class="cell"><button class="ds-btn ds-btn--primary ds-btn--md is-hover">Button</button></div>
+          <div class="cell"><button class="ds-btn ds-btn--primary ds-btn--md is-focus">Button</button></div>
+          <div class="cell"><button class="ds-btn ds-btn--primary ds-btn--md is-active">Button</button></div>
+          <div class="cell"><button class="ds-btn ds-btn--primary ds-btn--md" disabled>Button</button></div>
+          <div class="cell"><button class="ds-btn ds-btn--primary ds-btn--md" data-loading="true"><span class="ds-btn__label">Button</span><span class="ds-btn__spinner" aria-hidden="true"><svg class="ds-btn__spinner-svg" viewBox="0 0 16 16" fill="none"><circle class="ds-btn__spinner-track" cx="8" cy="8" r="6" stroke="currentColor" stroke-width="2"/><path class="ds-btn__spinner-head" d="M14 8a6 6 0 0 0-6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></span></button></div>
+        </div>
+
+        <!-- Secondary -->
+        <div class="matrix-row grid-6">
+          <div class="cell label">Secondary</div>
+          <div class="cell"><button class="ds-btn ds-btn--secondary ds-btn--md">Button</button></div>
+          <div class="cell"><button class="ds-btn ds-btn--secondary ds-btn--md is-hover">Button</button></div>
+          <div class="cell"><button class="ds-btn ds-btn--secondary ds-btn--md is-focus">Button</button></div>
+          <div class="cell"><button class="ds-btn ds-btn--secondary ds-btn--md is-active">Button</button></div>
+          <div class="cell"><button class="ds-btn ds-btn--secondary ds-btn--md" disabled>Button</button></div>
+          <div class="cell"><button class="ds-btn ds-btn--secondary ds-btn--md" data-loading="true"><span class="ds-btn__label">Button</span><span class="ds-btn__spinner" aria-hidden="true"><svg class="ds-btn__spinner-svg" viewBox="0 0 16 16" fill="none"><circle class="ds-btn__spinner-track" cx="8" cy="8" r="6" stroke="currentColor" stroke-width="2"/><path class="ds-btn__spinner-head" d="M14 8a6 6 0 0 0-6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></span></button></div>
+        </div>
+
+        <!-- Tertiary -->
+        <div class="matrix-row grid-6">
+          <div class="cell label">Tertiary</div>
+          <div class="cell"><button class="ds-btn ds-btn--tertiary ds-btn--md">Button</button></div>
+          <div class="cell"><button class="ds-btn ds-btn--tertiary ds-btn--md is-hover">Button</button></div>
+          <div class="cell"><button class="ds-btn ds-btn--tertiary ds-btn--md is-focus">Button</button></div>
+          <div class="cell"><button class="ds-btn ds-btn--tertiary ds-btn--md is-active">Button</button></div>
+          <div class="cell"><button class="ds-btn ds-btn--tertiary ds-btn--md" disabled>Button</button></div>
+          <div class="cell"><button class="ds-btn ds-btn--tertiary ds-btn--md" data-loading="true"><span class="ds-btn__label">Button</span><span class="ds-btn__spinner" aria-hidden="true"><svg class="ds-btn__spinner-svg" viewBox="0 0 16 16" fill="none"><circle class="ds-btn__spinner-track" cx="8" cy="8" r="6" stroke="currentColor" stroke-width="2"/><path class="ds-btn__spinner-head" d="M14 8a6 6 0 0 0-6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></span></button></div>
+        </div>
+
+        <!-- Ghost -->
+        <div class="matrix-row grid-6">
+          <div class="cell label">Ghost</div>
+          <div class="cell"><button class="ds-btn ds-btn--ghost ds-btn--md">Button</button></div>
+          <div class="cell"><button class="ds-btn ds-btn--ghost ds-btn--md is-hover">Button</button></div>
+          <div class="cell"><button class="ds-btn ds-btn--ghost ds-btn--md is-focus">Button</button></div>
+          <div class="cell"><button class="ds-btn ds-btn--ghost ds-btn--md is-active">Button</button></div>
+          <div class="cell"><button class="ds-btn ds-btn--ghost ds-btn--md" disabled>Button</button></div>
+          <div class="cell"><button class="ds-btn ds-btn--ghost ds-btn--md" data-loading="true"><span class="ds-btn__label">Button</span><span class="ds-btn__spinner" aria-hidden="true"><svg class="ds-btn__spinner-svg" viewBox="0 0 16 16" fill="none"><circle class="ds-btn__spinner-track" cx="8" cy="8" r="6" stroke="currentColor" stroke-width="2"/><path class="ds-btn__spinner-head" d="M14 8a6 6 0 0 0-6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></span></button></div>
+        </div>
+      </div>
+      <p class="notes">Focus state is simulated with <code>.is-focus</code>; in real usage it only appears via <code>:focus-visible</code>.</p>
+    </section>
+
+    <!-- ───────────── 02 · Sizes ───────────── -->
+    <section class="section">
+      <div class="section-title">
+        <span class="num">02</span><h2>Sizes</h2>
+        <span class="caption">sm 32 · md 44 · lg 52 (px height)</span>
+      </div>
+      <div class="matrix">
+        <div class="matrix-row grid-4">
+          <div class="cell corner label">Hierarchy \ Size</div>
+          <div class="cell label">Small · 32</div>
+          <div class="cell label">Medium · 44</div>
+          <div class="cell label">Large · 52</div>
+        </div>
+        <div class="matrix-row grid-4">
+          <div class="cell label">Primary</div>
+          <div class="cell"><button class="ds-btn ds-btn--primary ds-btn--sm">Button</button></div>
+          <div class="cell"><button class="ds-btn ds-btn--primary ds-btn--md">Button</button></div>
+          <div class="cell"><button class="ds-btn ds-btn--primary ds-btn--lg">Button</button></div>
+        </div>
+        <div class="matrix-row grid-4">
+          <div class="cell label">Secondary</div>
+          <div class="cell"><button class="ds-btn ds-btn--secondary ds-btn--sm">Button</button></div>
+          <div class="cell"><button class="ds-btn ds-btn--secondary ds-btn--md">Button</button></div>
+          <div class="cell"><button class="ds-btn ds-btn--secondary ds-btn--lg">Button</button></div>
+        </div>
+        <div class="matrix-row grid-4">
+          <div class="cell label">Tertiary</div>
+          <div class="cell"><button class="ds-btn ds-btn--tertiary ds-btn--sm">Button</button></div>
+          <div class="cell"><button class="ds-btn ds-btn--tertiary ds-btn--md">Button</button></div>
+          <div class="cell"><button class="ds-btn ds-btn--tertiary ds-btn--lg">Button</button></div>
+        </div>
+        <div class="matrix-row grid-4">
+          <div class="cell label">Ghost</div>
+          <div class="cell"><button class="ds-btn ds-btn--ghost ds-btn--sm">Button</button></div>
+          <div class="cell"><button class="ds-btn ds-btn--ghost ds-btn--md">Button</button></div>
+          <div class="cell"><button class="ds-btn ds-btn--ghost ds-btn--lg">Button</button></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ───────────── 03 · Icons ───────────── -->
+    <section class="section">
+      <div class="section-title">
+        <span class="num">03</span><h2>Icon Slots</h2>
+        <span class="caption">Leading · trailing · icon-only</span>
+      </div>
+      <div class="matrix">
+        <div class="matrix-row grid-4">
+          <div class="cell corner label">Slot \ Hierarchy</div>
+          <div class="cell label">Leading</div>
+          <div class="cell label">Trailing</div>
+          <div class="cell label">Icon only</div>
+        </div>
+        <div class="matrix-row grid-4">
+          <div class="cell label">Primary</div>
+          <div class="cell"><button class="ds-btn ds-btn--primary ds-btn--md"><span class="ds-btn__icon"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8h10m0 0L9 4m4 4l-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span class="ds-btn__label">Continue</span></button></div>
+          <div class="cell"><button class="ds-btn ds-btn--primary ds-btn--md"><span class="ds-btn__label">Continue</span><span class="ds-btn__icon"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8h10m0 0L9 4m4 4l-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span></button></div>
+          <div class="cell"><button class="ds-btn ds-btn--primary ds-btn--md ds-btn--icon-only" aria-label="Next"><span class="ds-btn__icon"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8h10m0 0L9 4m4 4l-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span></button></div>
+        </div>
+        <div class="matrix-row grid-4">
+          <div class="cell label">Secondary</div>
+          <div class="cell"><button class="ds-btn ds-btn--secondary ds-btn--md"><span class="ds-btn__icon"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M8 3v10m-5-5h10" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></span><span class="ds-btn__label">Add item</span></button></div>
+          <div class="cell"><button class="ds-btn ds-btn--secondary ds-btn--md"><span class="ds-btn__label">Download</span><span class="ds-btn__icon"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M8 2v9m0 0l-4-4m4 4l4-4M3 13h10" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span></button></div>
+          <div class="cell"><button class="ds-btn ds-btn--secondary ds-btn--md ds-btn--icon-only" aria-label="More"><span class="ds-btn__icon"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><circle cx="3" cy="8" r="1.25" fill="currentColor"/><circle cx="8" cy="8" r="1.25" fill="currentColor"/><circle cx="13" cy="8" r="1.25" fill="currentColor"/></svg></span></button></div>
+        </div>
+        <div class="matrix-row grid-4">
+          <div class="cell label">Tertiary</div>
+          <div class="cell"><button class="ds-btn ds-btn--tertiary ds-btn--md"><span class="ds-btn__icon"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M13 4L6 11l-3-3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span class="ds-btn__label">Approve</span></button></div>
+          <div class="cell"><button class="ds-btn ds-btn--tertiary ds-btn--md"><span class="ds-btn__label">Open</span><span class="ds-btn__icon"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M6 3h7v7M13 3L6 10M3 7v6h6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span></button></div>
+          <div class="cell"><button class="ds-btn ds-btn--tertiary ds-btn--md ds-btn--icon-only" aria-label="Settings"><span class="ds-btn__icon"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="2" stroke="currentColor" stroke-width="1.5"/><path d="M8 1v2M8 13v2M1 8h2M13 8h2M3.5 3.5l1.4 1.4M11.1 11.1l1.4 1.4M3.5 12.5l1.4-1.4M11.1 4.9l1.4-1.4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></span></button></div>
+        </div>
+        <div class="matrix-row grid-4">
+          <div class="cell label">Ghost</div>
+          <div class="cell"><button class="ds-btn ds-btn--ghost ds-btn--md"><span class="ds-btn__icon"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M13 4L9 8l4 4M7 4L3 8l4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span class="ds-btn__label">Back</span></button></div>
+          <div class="cell"><button class="ds-btn ds-btn--ghost ds-btn--md"><span class="ds-btn__label">Share</span><span class="ds-btn__icon"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><circle cx="4" cy="8" r="1.75" stroke="currentColor" stroke-width="1.5"/><circle cx="12" cy="4" r="1.75" stroke="currentColor" stroke-width="1.5"/><circle cx="12" cy="12" r="1.75" stroke="currentColor" stroke-width="1.5"/><path d="M5.5 7l5-2M5.5 9l5 2" stroke="currentColor" stroke-width="1.5"/></svg></span></button></div>
+          <div class="cell"><button class="ds-btn ds-btn--ghost ds-btn--md ds-btn--icon-only" aria-label="Close"><span class="ds-btn__icon"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M4 4l8 8M12 4l-8 8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></span></button></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ───────────── 04 · Danger ───────────── -->
+    <section class="section">
+      <div class="section-title">
+        <span class="num">04</span><h2>Danger Modifier</h2>
+        <span class="caption">Destructive actions — combinable with any hierarchy</span>
+      </div>
+      <div class="matrix">
+        <div class="matrix-row grid-5">
+          <div class="cell corner label">State</div>
+          <div class="cell label">Primary</div>
+          <div class="cell label">Secondary</div>
+          <div class="cell label">Tertiary</div>
+          <div class="cell label">Ghost</div>
+        </div>
+        <div class="matrix-row grid-5">
+          <div class="cell label">Default</div>
+          <div class="cell"><button class="ds-btn ds-btn--primary ds-btn--danger ds-btn--md">Delete</button></div>
+          <div class="cell"><button class="ds-btn ds-btn--secondary ds-btn--danger ds-btn--md">Delete</button></div>
+          <div class="cell"><button class="ds-btn ds-btn--tertiary ds-btn--danger ds-btn--md">Delete</button></div>
+          <div class="cell"><button class="ds-btn ds-btn--ghost ds-btn--danger ds-btn--md">Delete</button></div>
+        </div>
+        <div class="matrix-row grid-5">
+          <div class="cell label">Hover</div>
+          <div class="cell"><button class="ds-btn ds-btn--primary ds-btn--danger ds-btn--md is-hover">Delete</button></div>
+          <div class="cell"><button class="ds-btn ds-btn--secondary ds-btn--danger ds-btn--md is-hover">Delete</button></div>
+          <div class="cell"><button class="ds-btn ds-btn--tertiary ds-btn--danger ds-btn--md is-hover">Delete</button></div>
+          <div class="cell"><button class="ds-btn ds-btn--ghost ds-btn--danger ds-btn--md is-hover">Delete</button></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ───────────── 05 · Block + real interaction ───────────── -->
+    <section class="section">
+      <div class="section-title">
+        <span class="num">05</span><h2>Block & Live</h2>
+        <span class="caption">Click buttons to see real hover / focus / active / loading</span>
+      </div>
+      <div class="two-col">
+        <div style="padding:24px;border:1px solid var(--panel-border);border-radius:12px;background:var(--panel-bg);display:flex;flex-direction:column;gap:12px;">
+          <button class="ds-btn ds-btn--primary ds-btn--md ds-btn--block">Sign in</button>
+          <button class="ds-btn ds-btn--secondary ds-btn--md ds-btn--block">Create account</button>
+          <button class="ds-btn ds-btn--ghost ds-btn--md ds-btn--block">Continue as guest</button>
+        </div>
+        <div style="padding:24px;border:1px solid var(--panel-border);border-radius:12px;background:var(--panel-bg);display:flex;gap:12px;align-items:center;flex-wrap:wrap;">
+          <button class="ds-btn ds-btn--primary ds-btn--md" id="live-save">Save changes</button>
+          <button class="ds-btn ds-btn--tertiary ds-btn--md">Cancel</button>
+          <button class="ds-btn ds-btn--ghost ds-btn--md ds-btn--icon-only" aria-label="More"><span class="ds-btn__icon"><svg width="16" height="16" viewBox="0 0 16 16" fill="none"><circle cx="3" cy="8" r="1.25" fill="currentColor"/><circle cx="8" cy="8" r="1.25" fill="currentColor"/><circle cx="13" cy="8" r="1.25" fill="currentColor"/></svg></span></button>
+          <span style="font-size:13px;color:var(--muted);margin-left:auto;">Tab to see <code>:focus-visible</code></span>
+        </div>
+      </div>
+    </section>
+
+    <!-- ───────────── 06 · Tokens ───────────── -->
+    <section class="section">
+      <div class="section-title">
+        <span class="num">06</span><h2>Design Tokens</h2>
+        <span class="caption">CSS custom properties — override on any ancestor</span>
+      </div>
+      <div class="tokens" id="tokenGrid"></div>
+    </section>
+
+    <!-- ───────────── 07 · Code ───────────── -->
+    <section class="section">
+      <div class="section-title">
+        <span class="num">07</span><h2>Usage · React / TSX</h2>
+      </div>
+      <pre class="code"><span class="c-m">// Install: pnpm add @ds/button</span>
+<span class="c-k">import</span> { Button } <span class="c-k">from</span> <span class="c-s">"@ds/button"</span>;
+<span class="c-k">import</span> <span class="c-s">"@ds/button/dist/index.css"</span>;
+
+<span class="c-k">export function</span> <span class="c-p">Example</span>() {
+  <span class="c-k">return</span> (
+    &lt;<span class="c-p">div</span>&gt;
+      &lt;<span class="c-p">Button</span> hierarchy=<span class="c-s">"primary"</span>&gt;Save&lt;/<span class="c-p">Button</span>&gt;
+      &lt;<span class="c-p">Button</span> hierarchy=<span class="c-s">"secondary"</span> loading&gt;Syncing…&lt;/<span class="c-p">Button</span>&gt;
+      &lt;<span class="c-p">Button</span> hierarchy=<span class="c-s">"tertiary"</span> leadingIcon={&lt;<span class="c-p">Plus</span> /&gt;}&gt;Add&lt;/<span class="c-p">Button</span>&gt;
+      &lt;<span class="c-p">Button</span> hierarchy=<span class="c-s">"ghost"</span> iconOnly aria-label=<span class="c-s">"Close"</span>
+              leadingIcon={&lt;<span class="c-p">X</span> /&gt;} /&gt;
+      &lt;<span class="c-p">Button</span> hierarchy=<span class="c-s">"primary"</span> danger&gt;Delete&lt;/<span class="c-p">Button</span>&gt;
+    &lt;/<span class="c-p">div</span>&gt;
+  );
+}</pre>
+    </section>
+  </div>
+
+  <script>
+    /* Theme toggle */
+    const root = document.documentElement;
+    const tl = document.getElementById('tlight');
+    const td = document.getElementById('tdark');
+    function setTheme(t) {
+      root.setAttribute('data-theme', t);
+      tl.setAttribute('aria-pressed', t === 'light');
+      td.setAttribute('aria-pressed', t === 'dark');
+      try { localStorage.setItem('btn-demo-theme', t); } catch {}
+      renderTokens();
+    }
+    tl.addEventListener('click', () => setTheme('light'));
+    td.addEventListener('click', () => setTheme('dark'));
+    try {
+      const saved = localStorage.getItem('btn-demo-theme');
+      if (saved) setTheme(saved);
+    } catch {}
+
+    /* Live save button loading demo */
+    const live = document.getElementById('live-save');
+    live.addEventListener('click', () => {
+      if (live.getAttribute('data-loading') === 'true') return;
+      const prev = live.innerHTML;
+      live.setAttribute('data-loading', 'true');
+      live.innerHTML = '<span class="ds-btn__label">Save changes</span><span class="ds-btn__spinner" aria-hidden="true"><svg class="ds-btn__spinner-svg" viewBox="0 0 16 16" fill="none"><circle class="ds-btn__spinner-track" cx="8" cy="8" r="6" stroke="currentColor" stroke-width="2"/><path class="ds-btn__spinner-head" d="M14 8a6 6 0 0 0-6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></span>';
+      setTimeout(() => {
+        live.removeAttribute('data-loading');
+        live.innerHTML = prev;
+      }, 1600);
+    });
+
+    /* Token legend — read computed values from :root */
+    const TOKEN_KEYS = [
+      '--btn-ink','--btn-ink-hover','--btn-ink-active',
+      '--btn-surface','--btn-surface-hover','--btn-surface-active',
+      '--btn-border','--btn-border-hover',
+      '--btn-danger','--btn-danger-hover','--btn-danger-active',
+      '--btn-focus-ring',
+      '--btn-disabled-bg','--btn-disabled-fg','--btn-disabled-border',
+      '--btn-radius','--btn-h-sm','--btn-h-md','--btn-h-lg',
+      '--btn-px-sm','--btn-px-md','--btn-px-lg',
+      '--btn-font-size-sm','--btn-font-size-md','--btn-font-size-lg'
+    ];
+    function renderTokens() {
+      const cs = getComputedStyle(root);
+      const grid = document.getElementById('tokenGrid');
+      grid.innerHTML = TOKEN_KEYS.map(k => {
+        const v = cs.getPropertyValue(k).trim();
+        const isColor = v.startsWith('oklch') || v.startsWith('rgb') || v.startsWith('#') || v.startsWith('hsl');
+        const swatch = isColor
+          ? `<div class="token-swatch" style="background:${v}"></div>`
+          : `<div class="token-swatch" style="display:flex;align-items:center;justify-content:center;font-family:var(--mono);font-size:10px;color:var(--muted);background:var(--panel-bg)">${v.match(/\d+/)?.[0] ?? '·'}</div>`;
+        return `
+          <div class="token">
+            ${swatch}
+            <div class="token-meta">
+              <span class="token-name">${k}</span>
+              <span class="token-val" title="${v}">${v}</span>
+            </div>
+          </div>`;
+      }).join('');
+    }
+    renderTokens();
+  </script>
+</body>
+</html>

@@ -1,0 +1,97 @@
+/* Demo shell — uses Wimbledon token variables from _tokens.scss */
+
+.demo-app {
+  min-height: 100dvh;
+  background: var(--page-bg, #F2F4F8);
+  color: var(--page-fg, #121619);
+  font-family: var(--btn-font-family, 'Gotham SSm', system-ui, sans-serif);
+  padding: 48px 40px 96px;
+  max-width: 900px;
+  margin: 0 auto;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ── Header ─────────────────────────────────────────────────── */
+.demo-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 24px;
+  padding-bottom: 32px;
+  border-bottom: 1px solid var(--panel-border, #DDE1E6);
+  margin-bottom: 40px;
+}
+
+.demo-eyebrow {
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--muted, #697077);
+  margin: 0 0 6px;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+}
+
+.demo-title {
+  font-size: 36px;
+  font-weight: 600;
+  letter-spacing: -0.03em;
+  margin: 0;
+}
+
+/* ── Sections ────────────────────────────────────────────────── */
+.demo-section {
+  margin-top: 48px;
+}
+
+.demo-section__header {
+  display: flex;
+  align-items: baseline;
+  gap: 12px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid var(--panel-border, #DDE1E6);
+  margin-bottom: 20px;
+}
+
+.demo-section__title {
+  font-size: 13px;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--page-fg, #121619);
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  margin: 0;
+}
+
+.demo-section__sub {
+  font-size: 13px;
+  color: var(--muted, #697077);
+  font-family: var(--btn-font-family, system-ui, sans-serif);
+  letter-spacing: normal;
+  text-transform: none;
+}
+
+.demo-section__body {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+/* ── Row ─────────────────────────────────────────────────────── */
+.demo-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+/* ── Block card ──────────────────────────────────────────────── */
+.demo-card {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  max-width: 320px;
+  padding: 24px;
+  background: var(--panel-bg, #FFFFFF);
+  border: 1px solid var(--panel-border, #DDE1E6);
+  border-radius: 12px;
+}

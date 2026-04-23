@@ -1,0 +1,139 @@
+/**
+ * Button design tokens — Wimbledon Design System
+ * Colors derived from the Wimbledon brand palette (wdl-*).
+ * Override at runtime by redefining --btn-* custom properties.
+ */
+
+/* Gotham SSm — available weights from licensed OTF files */
+@font-face {
+  font-family: 'Gotham SSm';
+  font-style: normal;
+  font-weight: 200;
+  src: url('/fonts/gothamssm_xlight.otf') format('opentype');
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Gotham SSm';
+  font-style: normal;
+  font-weight: 500;
+  src: url('/fonts/gothamssm_medium.otf') format('opentype');
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Gotham SSm';
+  font-style: italic;
+  font-weight: 300;
+  src: url('/fonts/gothamssm_lightitalic.otf') format('opentype');
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Gotham SSm';
+  font-style: normal;
+  font-weight: 900;
+  src: url('/fonts/gothamssm_black.otf') format('opentype');
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Gotham SSm';
+  font-style: italic;
+  font-weight: 900;
+  src: url('/fonts/gothamssm_blackitalic.otf') format('opentype');
+  font-display: swap;
+}
+
+:root,
+[data-theme="light"] {
+  /* ── Surface & ink — Wimbledon green palette ────────────────────── */
+  --btn-ink:        #006633;   /* wdl-green — primary CTA */
+  --btn-ink-hover:  #00552B;   /* wdl-green-60 */
+  --btn-ink-active: #00331A;   /* wdl-green-80 */
+
+  --btn-surface:        #E4E9F1;   /* wdl-grey-10 — secondary filled bg */
+  --btn-surface-hover:  #DDE1E6;   /* wdl-grey-15 */
+  --btn-surface-active: #CDD3DA;   /* wdl-grey-20 */
+
+  --btn-border:       #DDE1E6;     /* wdl-grey-15 */
+  --btn-border-hover: #006633;     /* wdl-green */
+
+  --btn-ghost-hover:  rgba(0, 102, 51, 0.06);
+  --btn-ghost-active: rgba(0, 102, 51, 0.12);
+
+  /* ── Label / icon on variants ───────────────────────────────────── */
+  --btn-label-on-ink:      #FFFFFF;   /* text on green primary */
+  --btn-label-on-surface:  #121619;   /* wdl-grey-95 */
+  --btn-label-tertiary:    #006633;   /* wdl-green text, no border */
+  --btn-label-ghost:       #121619;   /* wdl-grey-95 */
+
+  /* ── Danger ─────────────────────────────────────────────────────── */
+  --btn-danger:        #DA1E28;   /* wdl-error */
+  --btn-danger-hover:  #B01820;
+  --btn-danger-active: #82060E;
+
+  /* ── Focus ──────────────────────────────────────────────────────── */
+  --btn-focus-ring:        #0F62FE;   /* wdl-focus */
+  --btn-focus-ring-width:  2px;
+  --btn-focus-ring-offset: 2px;
+
+  /* ── Disabled ───────────────────────────────────────────────────── */
+  --btn-disabled-bg:     #E4E9F1;   /* wdl-grey-10 */
+  --btn-disabled-fg:     #878D96;   /* wdl-grey-45 */
+  --btn-disabled-border: #E4E9F1;
+
+  /* ── Radii, spacing, type ──────────────────────────────────────── */
+  --btn-radius: 8px;
+
+  --btn-h-sm: 32px;
+  --btn-h-md: 44px;
+  --btn-h-lg: 52px;
+
+  --btn-px-sm: 12px;
+  --btn-px-md: 16px;
+  --btn-px-lg: 20px;
+
+  --btn-gap: 8px;
+
+  --btn-font-family:   'Gotham SSm', 'Gotham', -apple-system, system-ui, Arial, sans-serif;
+  --btn-font-weight:   500;
+  --btn-font-size-sm:  13px;
+  --btn-font-size-md:  14px;
+  --btn-font-size-lg:  16px;
+  --btn-letter-spacing: -0.01em;
+
+  --btn-icon-sm: 14px;
+  --btn-icon-md: 16px;
+  --btn-icon-lg: 18px;
+
+  --btn-transition: 120ms cubic-bezier(0.2, 0, 0, 1);
+}
+
+[data-theme="dark"] {
+  /* ── Surface & ink — brighter greens for dark backgrounds ───────── */
+  --btn-ink:        #22B263;   /* wdl-lawn-green — visible on dark */
+  --btn-ink-hover:  #1B9A4F;
+  --btn-ink-active: #145F33;
+
+  --btn-surface:        #2B3236;   /* wdl-grey-80 */
+  --btn-surface-hover:  #343A3F;   /* wdl-grey-75 */
+  --btn-surface-active: #434A51;   /* wdl-grey-70 */
+
+  --btn-border:       #434A51;
+  --btn-border-hover: #22B263;
+
+  --btn-ghost-hover:  rgba(34, 178, 99, 0.08);
+  --btn-ghost-active: rgba(34, 178, 99, 0.16);
+
+  --btn-label-on-ink:     #FFFFFF;   /* white on lawn green */
+  --btn-label-on-surface: #F2F4F8;   /* wdl-grey-5 */
+  --btn-label-tertiary:   #22B263;
+  --btn-label-ghost:      #F2F4F8;
+
+  --btn-danger:        #FF8389;
+  --btn-danger-hover:  #FFA4A9;
+  --btn-danger-active: #DA1E28;
+
+  --btn-focus-ring: #78A9FF;
+
+  --btn-disabled-bg:     #2B3236;
+  --btn-disabled-fg:     #697077;   /* wdl-grey-55 */
+  --btn-disabled-border: #2B3236;
+}

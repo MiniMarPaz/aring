@@ -1,0 +1,221 @@
+@use "../tokens/tokens" as *;
+
+/* ─────────────────────────────────────────────────────────────────────
+ * Base — all variants share structure
+ * ──────────────────────────────────────────────────────────────────── */
+.ds-btn {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--btn-gap);
+
+  box-sizing: border-box;
+  border: 1px solid transparent;
+  border-radius: var(--btn-radius);
+
+  font-family: var(--btn-font-family);
+  font-weight: var(--btn-font-weight);
+  letter-spacing: var(--btn-letter-spacing);
+  white-space: nowrap;
+  text-decoration: none;
+
+  cursor: pointer;
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
+
+  transition:
+    background-color var(--btn-transition),
+    color var(--btn-transition),
+    border-color var(--btn-transition),
+    box-shadow var(--btn-transition),
+    transform var(--btn-transition);
+
+  &:focus { outline: none; }
+
+  &:focus-visible {
+    outline: var(--btn-focus-ring-width) solid var(--btn-focus-ring);
+    outline-offset: var(--btn-focus-ring-offset);
+  }
+
+  /* Icon sizing */
+  .ds-btn__icon {
+    display: inline-flex;
+    flex: 0 0 auto;
+    align-items: center;
+    justify-content: center;
+  }
+
+  /* Keep label visible at same width while spinner overlays it */
+  &[data-loading="true"] {
+    cursor: progress;
+    .ds-btn__label,
+    .ds-btn__icon { visibility: hidden; }
+    .ds-btn__spinner {
+      position: absolute;
+      inset: 0;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+    }
+  }
+}
+
+/* ─────────────────────────────────────────────────────────────────────
+ * Sizes
+ * ──────────────────────────────────────────────────────────────────── */
+.ds-btn--sm {
+  height: var(--btn-h-sm);
+  padding: 0 var(--btn-px-sm);
+  font-size: var(--btn-font-size-sm);
+  .ds-btn__icon { width: var(--btn-icon-sm); height: var(--btn-icon-sm); }
+}
+.ds-btn--md {
+  height: var(--btn-h-md);
+  padding: 0 var(--btn-px-md);
+  font-size: var(--btn-font-size-md);
+  .ds-btn__icon { width: var(--btn-icon-md); height: var(--btn-icon-md); }
+}
+.ds-btn--lg {
+  height: var(--btn-h-lg);
+  padding: 0 var(--btn-px-lg);
+  font-size: var(--btn-font-size-lg);
+  .ds-btn__icon { width: var(--btn-icon-lg); height: var(--btn-icon-lg); }
+}
+
+/* Icon-only — square, no horizontal padding */
+.ds-btn--icon-only {
+  padding: 0;
+  &.ds-btn--sm { width: var(--btn-h-sm); }
+  &.ds-btn--md { width: var(--btn-h-md); }
+  &.ds-btn--lg { width: var(--btn-h-lg); }
+}
+
+/* Block / full-width */
+.ds-btn--block { width: 100%; }
+
+/* ─────────────────────────────────────────────────────────────────────
+ * Hierarchy — Primary
+ * ──────────────────────────────────────────────────────────────────── */
+.ds-btn--primary {
+  background-color: var(--btn-ink);
+  color: var(--btn-label-on-ink);
+  border-color: var(--btn-ink);
+
+  &:hover:not(:disabled):not([data-loading="true"]) {
+    background-color: var(--btn-ink-hover);
+    border-color: var(--btn-ink-hover);
+  }
+  &:active:not(:disabled):not([data-loading="true"]) {
+    background-color: var(--btn-ink-active);
+    border-color: var(--btn-ink-active);
+  }
+}
+
+/* Hierarchy — Secondary */
+.ds-btn--secondary {
+  background-color: var(--btn-surface);
+  color: var(--btn-label-on-surface);
+  border-color: var(--btn-surface);
+
+  &:hover:not(:disabled):not([data-loading="true"]) {
+    background-color: var(--btn-surface-hover);
+    border-color: var(--btn-surface-hover);
+  }
+  &:active:not(:disabled):not([data-loading="true"]) {
+    background-color: var(--btn-surface-active);
+    border-color: var(--btn-surface-active);
+  }
+}
+
+/* Hierarchy — Tertiary (no border — flat text-style in brand color) */
+.ds-btn--tertiary {
+  background-color: transparent;
+  color: var(--btn-label-tertiary);
+  border-color: transparent;
+
+  &:hover:not(:disabled):not([data-loading="true"]) {
+    background-color: var(--btn-ghost-hover);
+  }
+  &:active:not(:disabled):not([data-loading="true"]) {
+    background-color: var(--btn-ghost-active);
+  }
+}
+
+/* Hierarchy — Ghost */
+.ds-btn--ghost {
+  background-color: transparent;
+  color: var(--btn-label-ghost);
+  border-color: transparent;
+
+  &:hover:not(:disabled):not([data-loading="true"]) {
+    background-color: var(--btn-ghost-hover);
+  }
+  &:active:not(:disabled):not([data-loading="true"]) {
+    background-color: var(--btn-ghost-active);
+  }
+}
+
+/* Danger modifier — overrides color regardless of hierarchy */
+.ds-btn--danger {
+  &.ds-btn--primary {
+    background-color: var(--btn-danger);
+    border-color: var(--btn-danger);
+    color: var(--btn-label-on-ink);
+    &:hover:not(:disabled):not([data-loading="true"]) {
+      background-color: var(--btn-danger-hover);
+      border-color: var(--btn-danger-hover);
+    }
+    &:active:not(:disabled):not([data-loading="true"]) {
+      background-color: var(--btn-danger-active);
+      border-color: var(--btn-danger-active);
+    }
+  }
+  &.ds-btn--secondary,
+  &.ds-btn--tertiary,
+  &.ds-btn--ghost {
+    color: var(--btn-danger);
+  }
+  &.ds-btn--tertiary { border-color: var(--btn-danger); }
+}
+
+/* ─────────────────────────────────────────────────────────────────────
+ * Disabled — universal, last to win the cascade
+ * ──────────────────────────────────────────────────────────────────── */
+.ds-btn:disabled,
+.ds-btn[aria-disabled="true"] {
+  cursor: not-allowed;
+  background-color: var(--btn-disabled-bg);
+  color: var(--btn-disabled-fg);
+  border-color: var(--btn-disabled-border);
+  pointer-events: none;
+
+  &.ds-btn--ghost {
+    background-color: transparent;
+    border-color: transparent;
+  }
+  &.ds-btn--tertiary {
+    background-color: transparent;
+    border-color: transparent;
+  }
+}
+
+/* ─────────────────────────────────────────────────────────────────────
+ * Spinner
+ * ──────────────────────────────────────────────────────────────────── */
+.ds-btn__spinner-svg {
+  width: 1em;
+  height: 1em;
+  animation: ds-btn-spin 0.8s linear infinite;
+}
+.ds-btn__spinner-track { opacity: 0.25; }
+.ds-btn__spinner-head  { opacity: 1; }
+
+@keyframes ds-btn-spin {
+  to { transform: rotate(360deg); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ds-btn { transition: none; }
+  .ds-btn__spinner-svg { animation-duration: 2s; }
+}
